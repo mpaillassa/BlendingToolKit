@@ -36,22 +36,13 @@ pix_HSC = 0.167
 pix_DES = 0.263
 pix_CFHT = 0.185
 
-# Sigma of the psf profile in arcseconds.
-# https://arxiv.org/pdf/1702.01747.pdf Z-band
-sigma_ROMAN = 0.11 * np.array([1.68, 1.69, 1.86, 2.12, 2.44, 2.71])
-
-# https://www.lsst.org/about/camera/features
-sigma_RUBIN = np.array([0.327, 0.31, 0.297, 0.285, 0.276, 0.267])
-
-# https://sci.esa.int/documents/33859/36320/1567253682555-Euclid_presentation_Paris_1Dec2009.pdf
-sigma_EUCLID = np.array([0.16])
-
-# Source https://hst-docs.stsci.edu/display/WFC3IHB/6.6+UVIS+Optical+Performance#id-6
+# Sigma of the psf profile in arcseconds. Sources :
+# Roman : https://arxiv.org/pdf/1702.01747.pdf Z-band
+# Rubin : https://www.lsst.org/about/camera/features
+# Euclid : https://sci.esa.int/documents/33859/36320/1567253682555-Euclid_presentation_Paris_1Dec2009.pdf
+# HST : https://hst-docs.stsci.edu/display/WFC3IHB/6.6+UVIS+Optical+Performance#id-6
 # .6UVISOpticalPerformance-6.6.1 800nm
-sigma_HST = np.array([0.074])
-
-# https://hsc-release.mtk.nao.ac.jp/doc/ deep+udeep
-sigma_HSC = np.array([0.306, 0.285, 0.238, 0.268, 0.272])
+# HSC : https://hsc-release.mtk.nao.ac.jp/doc/ deep+udeep
 
 
 Euclid = Survey(
