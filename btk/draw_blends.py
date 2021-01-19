@@ -290,14 +290,16 @@ class DrawBlendsGenerator(ABC):
             Images of blend and isolated galaxies as `numpy.ndarray`.
 
         """
-        if not hasattr(cutout, "survey"):
+        if hasattr(cutout, "mean_sky_level"):
             mean_sky_level = cutout.mean_sky_level
-        elif not hasattr(cutout, "mean_sky_level"):
+        elif hasattr(cutout, "filt"):
+            mean_sky_level = cutout.filt.mean_sky_level
+        elif hasattr(cutout, "survey"):
             mean_sky_level = cutout.survey.mean_sky_level[
                 [b == filt for b in cutout.survey.filters]
             ]
         else:
-            raise AttributeError("cutout needs a `survey`  as an attribute.")
+            raise AttributeError("cutout needs a `mean_sky_level`  as an attribute.")
 
         blend_catalog.add_column(
             Column(np.zeros(len(blend_catalog)), name="not_drawn_" + filt.name)
@@ -441,8 +443,14 @@ class CosmosGenerator(DrawBlendsGenerator):
         self.cat = galsim_cat
 
         super().__init__(
-            blend_generator,
-            observing_generator,
+            catalog,
+            sampling_function,
+            surveys,
+            obs_conds=obs_conds,
+            batch_size=batch_size,
+            stamp_size=stamp_size,
+            shifts=shifts,
+            indexes=indexes,
             meas_bands=meas_bands,
             multiprocessing=multiprocessing,
             cpus=cpus,
